@@ -1,0 +1,12 @@
+/*!*********************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/css/style.css ***!
+  \*********************************************************************/
+
+div{
+  width: 100px;
+  height: 100px;
+  background-color: orange;
+  color: royalblue;
+}
+
+/*# sourceMappingURL=style.css.map*/
