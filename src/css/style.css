@@ -39,7 +39,7 @@ body {
   /* ! */
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: cenyter;
   flex-wrap: wrap;
   transition: 0.2s;
   /* ! */
