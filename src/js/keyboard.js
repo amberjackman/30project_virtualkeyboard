@@ -4,6 +4,7 @@ export class Keyboard {
   #containerEl;
   #keboardEl;
   #inputGroupEl;
+  #inputEl;
 
   constructor() {
     this.#assignElement();
@@ -16,13 +17,23 @@ export class Keyboard {
     this.#fontSelectEl = this.#containerEl.querySelector("#font");
     this.#keboardEl = this.#containerEl.querySelector("#keyboard");
     this.#inputGroupEl = this.#containerEl.querySelector("#input-group");
+    this.#inputEl = this.#containerEl.querySelector("#input");
   }
 
   #addEvent() {
     this.#swichEl.addEventListener("change", this.#onChangeTheme);
     this.#fontSelectEl.addEventListener("change", this.#onChangeFont);
-    document.addEventListener("keydown",(event) => {
-      // console.log(event.code);
+    document.addEventListener("keydown", this.#onKeyDown.bind(this));
+    document.addEventListener("keyup", this.#onKeyUp.bind(this));
+    this.#inputEl.addEventListener("input", this.#onInput)
+  }
+
+
+  #onInput(event) {
+    event.target.value = event.target.value.replace(/^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]+$/, "");
+  }
+
+  #onKeyDown(event) {
       this.#inputGroupEl.classList.toggle(
         "error",
         /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]+$/.test(event.key)
@@ -31,17 +42,13 @@ export class Keyboard {
       this.#keboardEl 
         .querySelector(`[data-code=${event.code}]`)
         ?.classList.add("active");
- 
-    });
+  }
 
-    document.addEventListener("keyup",(event) => {
+  #onKeyUp(event) {
       this.#keboardEl 
         .querySelector(`[data-code=${event.code}]`)
         ?.classList.remove("active");
-    
-    });
   }
-
   
   #onChangeTheme(event) {
     document.documentElement.setAttribute(
